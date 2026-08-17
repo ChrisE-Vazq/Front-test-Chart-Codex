@@ -1,10 +1,10 @@
-# Population by Region
+# Crypto Market Leaders
 
-A small React dashboard that compares country population data. Choose a region to update both charts: a bar chart of the ten largest populations and a doughnut chart of the five largest population shares.
+A small React dashboard that compares cryptocurrency market data in US dollars. Select how many of the largest assets to load; the charts update using the returned data.
 
 ## API
 
-The project uses the [World Bank Indicators API](https://datahelpdesk.worldbank.org/knowledgebase/articles/889392-about-the-indicators-api-documentation). It is public, requires no API key, and supplies country metadata plus total population values. The dashboard requests the latest selected year (2023) from the `SP.POP.TOTL` population indicator.
+The project uses the [CoinGecko API](https://www.coingecko.com/en/api). Its public market endpoint needs no API key for this exercise and permits browser requests. It provides current cryptocurrency names, market capitalization, price, and volume data.
 
 ## Technologies
 
@@ -28,10 +28,10 @@ npm run build
 
 ## Implementation notes
 
-Fetching is isolated in `src/services/countriesApi.ts`. It makes two parallel requests, checks HTTP status codes, and validates the response before returning the smaller `Country` shape. `src/utils/countryData.ts` contains pure filtering, sorting, and formatting helpers used by the dashboard.
+Fetching is isolated in `src/services/cryptoApi.ts`. The service checks HTTP status codes and validates the returned response before creating the smaller `CryptoAsset` shape. `src/utils/cryptoData.ts` contains pure chart helpers.
 
-The region dropdown is the interactive control. It changes the source countries for both charts. The page has explicit loading, retryable error, and no-results states so it remains understandable when the API is slow or unavailable.
+The **Assets to load** dropdown is the interactive control. It requests the selected number of top assets, then updates both charts. The page includes loading, retryable error, and no-results states so the interface remains understandable when the API is slow or unavailable.
 
 ## Limitations
 
-The data is loaded directly from a third-party public API each time the page opens; no caching is included. Population values are the 2023 values currently provided by the API, and chart values depend on its availability.
+Market values are current and can change between requests. CoinGecko may rate-limit frequent requests, so the application intentionally makes one request when the page loads and another only when the dropdown changes or the user retries.

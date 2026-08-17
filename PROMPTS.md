@@ -6,10 +6,10 @@ This file records meaningful AI-assisted steps during development. Generated sug
 
 **Prompt:** Review the technical exercise requirements and propose a minimal React TypeScript dashboard, including a public API, charts, an interactive control, and a small project structure.
 
-**Result reviewed:** A no-key country data source was selected to support a region filter and population charts. Vite was selected instead of Next.js because this is one client-side page with no server-rendering or routing requirement.
+**Result reviewed:** Vite was selected instead of Next.js because this is one client-side page with no server-rendering or routing requirement.
 
-## 2026-08-16 — Implementation and API check
+## 2026-08-16 — Implementation and API review
 
-**Prompt:** Implement the approved dashboard incrementally using native fetch, explicit TypeScript types, Chart.js, loading/error states, and a concise README. Verify the selected public API before finalizing.
+**Prompt:** Implement the approved dashboard incrementally using native fetch, explicit TypeScript types, Chart.js, loading/error states, and a concise README. Verify that the selected public API works from a browser.
 
-**Result reviewed:** The original REST Countries v3.1 endpoint returned a deprecation response in live testing, so the implementation was changed to the keyless World Bank Indicators API. Fetching, data transformation, chart rendering, and styles remain in small focused files. Lint and production build are run after implementation.
+**Result reviewed:** REST Countries v3.1 returned a deprecation response. The World Bank API allowed server-side requests but failed browser CORS checks. The application was changed to CoinGecko after verifying its market endpoint allows cross-origin browser requests. Fetching, transformations, chart rendering, and styles remain in small focused files. Lint and production builds are run after changes.

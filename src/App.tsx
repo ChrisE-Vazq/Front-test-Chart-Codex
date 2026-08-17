@@ -1,38 +1,36 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Dashboard } from './components/Dashboard'
-import { fetchCountries } from './services/countriesApi'
-import type { Country } from './types/country'
-import { getRegions } from './utils/countryData'
+import { fetchCryptoAssets } from './services/cryptoApi'
+import type { CryptoAsset } from './types/crypto'
 import './App.css'
 
 function App() {
-  const [countries, setCountries] = useState<Country[]>([])
-  const [selectedRegion, setSelectedRegion] = useState('All regions')
+  const [assets, setAssets] = useState<CryptoAsset[]>([])
+  const [selectedLimit, setSelectedLimit] = useState(25)
   const [isLoading, setIsLoading] = useState(true)
   const [errorMessage, setErrorMessage] = useState('')
 
-  async function loadCountries() {
+  async function loadAssets(limit: number) {
     setIsLoading(true)
     setErrorMessage('')
     try {
-      setCountries(await fetchCountries())
+      setAssets(await fetchCryptoAssets(limit))
     } catch (error) {
-      setErrorMessage(error instanceof Error ? error.message : 'Unable to load country data.')
+      setErrorMessage(error instanceof Error ? error.message : 'Unable to load market data.')
     } finally {
       setIsLoading(false)
     }
   }
 
-  useEffect(() => { void loadCountries() }, [])
-  const regions = useMemo(() => getRegions(countries), [countries])
+  useEffect(() => { void loadAssets(selectedLimit) }, [selectedLimit])
 
   return <main className="app-shell">
     <header className="page-header">
-      <p className="eyebrow">World Bank data dashboard</p>
-      <h1>Population by region</h1>
-      <p className="intro">Compare the most populous countries using public World Bank data.</p>
+      <p className="eyebrow">CoinGecko market dashboard</p>
+      <h1>Crypto market leaders</h1>
+      <p className="intro">Compare the largest cryptocurrencies by market capitalization in US dollars.</p>
     </header>
-    <Dashboard countries={countries} regions={regions} selectedRegion={selectedRegion} isLoading={isLoading} errorMessage={errorMessage} onRegionChange={setSelectedRegion} onRetry={() => void loadCountries()} />
+    <Dashboard assets={assets} selectedLimit={selectedLimit} isLoading={isLoading} errorMessage={errorMessage} onLimitChange={setSelectedLimit} onRetry={() => void loadAssets(selectedLimit)} />
   </main>
 }
 
