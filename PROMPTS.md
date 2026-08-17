@@ -13,3 +13,9 @@ This file records meaningful AI-assisted steps during development. Generated sug
 **Prompt:** Implement the approved dashboard incrementally using native fetch, explicit TypeScript types, Chart.js, loading/error states, and a concise README. Verify that the selected public API works from a browser.
 
 **Result reviewed:** REST Countries v3.1 returned a deprecation response. The World Bank API allowed server-side requests but failed browser CORS checks. The application was changed to CoinGecko after verifying its market endpoint allows cross-origin browser requests. Fetching, transformations, chart rendering, and styles remain in small focused files. Lint and production builds are run after changes.
+
+## 2026-08-16 — Interactive control correction
+
+**Prompt:** Review why the dashboard control did not visibly change its charts and make the interaction meaningful.
+
+**Result reviewed:** The original control changed the number of assets fetched, but charts always used the first ten and five assets. It was changed to select distinct market-cap rank ranges, so each option visibly changes the chart data.

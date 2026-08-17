@@ -1,6 +1,6 @@
 # Crypto Market Leaders
 
-A small React dashboard that compares cryptocurrency market data in US dollars. Select how many of the largest assets to load; the charts update using the returned data.
+A small React dashboard that compares cryptocurrency market data in US dollars. Select a market-cap rank range and both charts update with that group of assets.
 
 ## API
 
@@ -30,8 +30,8 @@ npm run build
 
 Fetching is isolated in `src/services/cryptoApi.ts`. The service checks HTTP status codes and validates the returned response before creating the smaller `CryptoAsset` shape. `src/utils/cryptoData.ts` contains pure chart helpers.
 
-The **Assets to load** dropdown is the interactive control. It requests the selected number of top assets, then updates both charts. The page includes loading, retryable error, and no-results states so the interface remains understandable when the API is slow or unavailable.
+The **Market-cap rank range** dropdown is the interactive control. It changes both charts between ranks 1–10, 11–20, and 21–30. The page includes loading, retryable error, and no-results states so the interface remains understandable when the API is slow or unavailable.
 
 ## Limitations
 
-Market values are current and can change between requests. CoinGecko may rate-limit frequent requests, so the application intentionally makes one request when the page loads and another only when the dropdown changes or the user retries.
+Market values are current and can change between requests. CoinGecko may rate-limit frequent requests, so the application loads 50 assets once and filters them locally when the dropdown changes.

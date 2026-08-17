@@ -6,15 +6,15 @@ import './App.css'
 
 function App() {
   const [assets, setAssets] = useState<CryptoAsset[]>([])
-  const [selectedLimit, setSelectedLimit] = useState(25)
+  const [selectedRankOffset, setSelectedRankOffset] = useState(0)
   const [isLoading, setIsLoading] = useState(true)
   const [errorMessage, setErrorMessage] = useState('')
 
-  async function loadAssets(limit: number) {
+  async function loadAssets() {
     setIsLoading(true)
     setErrorMessage('')
     try {
-      setAssets(await fetchCryptoAssets(limit))
+      setAssets(await fetchCryptoAssets(50))
     } catch (error) {
       setErrorMessage(error instanceof Error ? error.message : 'Unable to load market data.')
     } finally {
@@ -22,7 +22,7 @@ function App() {
     }
   }
 
-  useEffect(() => { void loadAssets(selectedLimit) }, [selectedLimit])
+  useEffect(() => { void loadAssets() }, [])
 
   return <main className="app-shell">
     <header className="page-header">
@@ -30,7 +30,7 @@ function App() {
       <h1>Crypto market leaders</h1>
       <p className="intro">Compare the largest cryptocurrencies by market capitalization in US dollars.</p>
     </header>
-    <Dashboard assets={assets} selectedLimit={selectedLimit} isLoading={isLoading} errorMessage={errorMessage} onLimitChange={setSelectedLimit} onRetry={() => void loadAssets(selectedLimit)} />
+    <Dashboard assets={assets} selectedRankOffset={selectedRankOffset} isLoading={isLoading} errorMessage={errorMessage} onRankOffsetChange={setSelectedRankOffset} onRetry={() => void loadAssets()} />
   </main>
 }
 
