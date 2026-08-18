@@ -31,6 +31,7 @@ function App() {
       <p className="intro">Compare the largest cryptocurrencies by market capitalization in US dollars.</p>
     </header>
     <Dashboard assets={assets} selectedRankOffset={selectedRankOffset} isLoading={isLoading} errorMessage={errorMessage} onRankOffsetChange={setSelectedRankOffset} onRetry={() => void loadAssets()} />
+    <footer className="page-footer">Frontend Codex test</footer>
   </main>
 }
 

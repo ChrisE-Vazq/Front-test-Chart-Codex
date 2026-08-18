@@ -18,4 +18,5 @@ select { min-width: 205px; border: 1px solid #b8c4d7; border-radius: 7px; backgr
 .retry-button { margin-top: 16px; border: 0; border-radius: 7px; padding: 10px 16px; background: #276749; color: white; cursor: pointer; font-weight: 700; }
 .retry-button:hover { background: #1f573c; }
 .empty-state { grid-column: 1 / -1; }
+.page-footer { margin-top: 36px; color: #718096; font-size: .88rem; text-align: center; }
 @media (max-width: 760px) { .app-shell { padding: 32px 0; } .toolbar { align-items: stretch; flex-direction: column; } select { width: 100%; } .charts { grid-template-columns: 1fr; } }
